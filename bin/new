@@ -1,0 +1,6 @@
+#!/usr/bin/env ruby
+
+require 'otouto'
+
+cli = Otouto::CLI.new
+cli.create_new_app
