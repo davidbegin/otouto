@@ -1,23 +1,35 @@
 require "otouto/version"
+require "fileutils"
 
 module Otouto
   class CLI
+
+    def initialize(app_name)
+      @app_name = app_name
+    end
+
     def create_new_app
       puts "\n\n\t#{otouto}  #{title}\n"
-      coming_soon
+      create_config_dir
+    end
+
+    private
+
+    attr_reader :app_name
+
+    def create_config_dir
+      FileUtils.mkdir("tmp/#{app_name}")
+      FileUtils.mkdir("tmp/#{app_name}/config")
+      FileUtils.touch("tmp/#{app_name}/config/hostnames.yml")
     end
 
     def coming_soon
       puts "\n\n"
       (41..48).each do |color|
-        print coming_soon_template(color.to_s)
-        print coming_soon_template((color - 10).to_s)
+        print "\t\e[1m\e[#{color.to_s}mComing soon\e[0m"
+        print "\t\e[1m\e[#{(color - 10).to_s}mComing soon\e[0m"
         puts "\n\n"
       end
-    end
-
-    def coming_soon_template(color)
-       "\t\e[1m\e[#{color}mComing soon\e[0m"
     end
 
     def title
