@@ -6,10 +6,15 @@ class TestCreatingNewOtoutoApp < Minitest::Test
   end
 
   def setup
+    FileUtils.rmdir "tmp"
     @app_name = "new_app"
   end
 
-  def test_it_creates_a_config
+  def teardown
+    FileUtils.rm_r Dir.glob('tmp/*')
+  end
+
+  def test_it_creates_a_config_dir
     refute File.exists?("tmp/#{@app_name}/config")
     cli = Otouto::CLI.new(@app_name)
     cli.create_new_app

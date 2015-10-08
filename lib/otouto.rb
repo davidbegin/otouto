@@ -18,9 +18,10 @@ module Otouto
     attr_reader :app_name
 
     def create_config_dir
-      FileUtils.mkdir("tmp/#{app_name}")
-      FileUtils.mkdir("tmp/#{app_name}/config")
-      FileUtils.touch("tmp/#{app_name}/config/hostnames.yml")
+      FileUtils.mkdir("#{self.class.base_dir}")
+      FileUtils.mkdir("#{self.class.base_dir}/#{app_name}")
+      FileUtils.mkdir("#{self.class.base_dir}/#{app_name}/config")
+      FileUtils.touch("#{self.class.base_dir}/#{app_name}/config/hostnames.yml")
     end
 
     def coming_soon
@@ -38,6 +39,12 @@ module Otouto
 
     def otouto
       "\e[1m\e[33m(╯°□°)╯︵ \e[5m\e[36m┻━┻\e[0m"
+    end
+
+    class << self
+      def base_dir
+        "tmp"
+      end
     end
   end
 end
