@@ -6,12 +6,14 @@ class TestCreatingNewOtoutoApp < Minitest::Test
   end
 
   def setup
+    Otouto.base_dir = "tmp"
     FileUtils.rmdir "tmp"
     @app_name = "new_app"
   end
 
   def teardown
     FileUtils.rm_r Dir.glob('tmp/*')
+    Otouto.reset_base_dir!
   end
 
   def test_it_creates_a_config_dir

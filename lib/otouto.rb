@@ -2,6 +2,17 @@ require "otouto/version"
 require "fileutils"
 
 module Otouto
+  class << self
+    # base_dir is directory that a new project will generated in
+    # it defaults to the current directory
+    attr_accessor :base_dir
+
+    # sets the base director back to the current_directory
+    def reset_base_dir!
+      @base_dir = ""
+    end
+  end
+
   class CLI
 
     def initialize(app_name)
@@ -18,10 +29,8 @@ module Otouto
     attr_reader :app_name
 
     def create_config_dir
-      FileUtils.mkdir("#{self.class.base_dir}")
-      FileUtils.mkdir("#{self.class.base_dir}/#{app_name}")
-      FileUtils.mkdir("#{self.class.base_dir}/#{app_name}/config")
-      FileUtils.touch("#{self.class.base_dir}/#{app_name}/config/hostnames.yml")
+      FileUtils.mkdir_p("#{Otouto.base_dir}/#{app_name}/config")
+      FileUtils.touch("#{Otouto.base_dir}/#{app_name}/config/hostnames.yml")
     end
 
     def coming_soon
@@ -39,12 +48,6 @@ module Otouto
 
     def otouto
       "\e[1m\e[33m(╯°□°)╯︵ \e[5m\e[36m┻━┻\e[0m"
-    end
-
-    class << self
-      def base_dir
-        "tmp"
-      end
     end
   end
 end
