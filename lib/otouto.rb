@@ -33,15 +33,6 @@ module Otouto
       FileUtils.touch("#{Otouto.base_dir}/#{app_name}/config/hostnames.yml")
     end
 
-    def coming_soon
-      puts "\n\n"
-      (41..48).each do |color|
-        print "\t\e[1m\e[#{color.to_s}mComing soon\e[0m"
-        print "\t\e[1m\e[#{(color - 10).to_s}mComing soon\e[0m"
-        puts "\n\n"
-      end
-    end
-
     def title
       "\e[1m\e[35mOTOUTO\e[0m"
     end
