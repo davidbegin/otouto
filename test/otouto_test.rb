@@ -1,4 +1,5 @@
 require 'test_helper'
+require "yaml"
 
 class TestCreatingNewOtoutoApp < Minitest::Test
   def test_that_it_has_a_version_number
@@ -16,10 +17,12 @@ class TestCreatingNewOtoutoApp < Minitest::Test
     Otouto.reset_base_dir!
   end
 
-  def test_it_creates_a_config_dir
-    refute File.exists?("tmp/#{@app_name}/config")
+  def test_it_creates_a_sample_hostname_file
+    refute File.exists?("tmp/#{@app_name}/config/hostnames.yml")
     cli = Otouto::CLI.new(@app_name)
     cli.create_new_app
-    assert File.exists?("tmp/#{@app_name}/config")
+    assert File.exists?("tmp/#{@app_name}/config/hostnames.yml")
+    hostnames = YAML.load_file("tmp/#{@app_name}/config/hostnames.yml")
+    assert_equal hostnames["a"],"http://example.com"
   end
 end

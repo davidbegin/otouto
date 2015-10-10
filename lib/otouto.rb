@@ -22,6 +22,7 @@ module Otouto
     def create_new_app
       puts "\n\n\t#{otouto}  #{title}\n"
       create_config_dir
+      create_sample_hostnames_file
     end
 
     private
@@ -29,8 +30,17 @@ module Otouto
     attr_reader :app_name
 
     def create_config_dir
-      FileUtils.mkdir_p("#{Otouto.base_dir}/#{app_name}/config")
-      FileUtils.touch("#{Otouto.base_dir}/#{app_name}/config/hostnames.yml")
+      FileUtils.mkdir_p("#{hostname_file_path}")
+    end
+
+    def create_sample_hostnames_file
+      File.open("#{hostname_file_path}/hostnames.yml", "w+") do |file|
+        file.write('a: "http://example.com"')
+      end
+    end
+
+    def hostname_file_path
+      "#{Otouto.base_dir}/#{app_name}/config"
     end
 
     def title
