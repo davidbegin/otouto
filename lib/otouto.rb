@@ -40,8 +40,8 @@ module Otouto
 
       create_config_dir
       create_sample_hostnames_file
-      create_bin_dir
       create_bin_and_oto_excutable
+      create_gemfile
     end
 
     private
@@ -58,12 +58,18 @@ module Otouto
       end
     end
 
-    def create_bin_dir
-      FileUtils.mkdir_p("#{bin_path}")
+    def create_gemfile
+      FileUtils.cp("config/Gemfile", "#{Otouto.base_dir}/#{app_name}/Gemfile")
     end
 
     def create_bin_and_oto_excutable
+      create_bin_dir
       FileUtils.cp("config/oto", "#{bin_path}/oto")
+      FileUtils.chmod("+x", "#{bin_path}/oto")
+    end
+
+    def create_bin_dir
+      FileUtils.mkdir_p("#{bin_path}")
     end
 
     def bin_path

@@ -32,4 +32,11 @@ class TestCreatingNewOtoutoApp < Minitest::Test
     cli.create_new_app
     assert File.exists?("tmp/#{@app_name}/bin/oto")
   end
+
+  def test_it_creates_a_gemfile
+    refute File.exists?("tmp/#{@app_name}/Gemfile")
+    cli = Otouto::CLI.new(@app_name)
+    cli.create_new_app
+    assert File.exists?("tmp/#{@app_name}/Gemfile")
+  end
 end
