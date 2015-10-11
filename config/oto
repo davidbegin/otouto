@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+require "otouto"
+
+Otouto::CLI.print_title
