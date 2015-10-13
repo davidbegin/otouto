@@ -1,5 +1,7 @@
 require "otouto/version"
+require "otouto/app"
 require "fileutils"
+require "downup"
 
 module Otouto
   class << self
@@ -13,11 +15,10 @@ module Otouto
     end
   end
 
-  class CLI
-
+  class Title
     class << self
-      def print_title
-        puts "\n\n\t#{otouto}  #{title}\n"
+      def print
+        puts "\n\n\t#{otouto}  #{title}\n\n"
       end
 
       private
@@ -30,13 +31,15 @@ module Otouto
         "\e[1m\e[33m(╯°□°)╯︵ \e[5m\e[36m┻━┻\e[0m"
       end
     end
+  end
 
+  class CLI
     def initialize(app_name)
       @app_name = app_name
     end
 
     def create_new_app
-      self.class.print_title unless ENV["TEST_MODE"] == "true"
+      Title.print unless ENV["TEST_MODE"] == "true"
 
       create_config_dir
       create_sample_hostnames_file
@@ -53,9 +56,10 @@ module Otouto
     end
 
     def create_sample_hostnames_file
-      File.open("#{config_path}/hostnames.yml", "w+") do |file|
-        file.write('a: "http://example.com"')
-      end
+      FileUtils.cp(
+        "config/hostnames.yml",
+        "#{Otouto.base_dir}/#{app_name}/config/hostnames.yml"
+      )
     end
 
     def create_gemfile
