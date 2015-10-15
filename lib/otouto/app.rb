@@ -13,7 +13,8 @@ module Otouto
         header_proc: Title.method(:print)
       ).prompt
 
-      puts hostname + route
+      curl_stmt = "curl " + hostname + route
+      p system("curl #{hostname + route}")
     end
 
     private
