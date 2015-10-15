@@ -43,6 +43,7 @@ module Otouto
 
       create_config_dir
       create_sample_hostnames_file
+      create_sample_routes_file
       create_bin_and_oto_excutable
       create_gemfile
     end
@@ -53,6 +54,13 @@ module Otouto
 
     def create_config_dir
       FileUtils.mkdir_p("#{config_path}")
+    end
+
+    def create_sample_routes_file
+      FileUtils.cp(
+        "config/routes.yml",
+        "#{Otouto.base_dir}/#{app_name}/config/routes.yml"
+      )
     end
 
     def create_sample_hostnames_file

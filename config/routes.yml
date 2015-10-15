@@ -1,0 +1,6 @@
+www.google.com:
+  a:
+    method: "GET"
+    url: "?q=:query"
+    data:
+      - "query"
