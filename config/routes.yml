@@ -1,6 +1,6 @@
 http://www.google.com:
   a:
     method: "GET"
-    url: "?q=:query"
+    url: "/search?q=:query"
     data:
       - "query"

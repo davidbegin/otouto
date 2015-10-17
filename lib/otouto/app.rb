@@ -13,8 +13,10 @@ module Otouto
         header_proc: Title.method(:print)
       ).prompt
 
-      curl_stmt = "curl " + hostname + route
-      p system("curl #{hostname + route}")
+      # TODO: add way to configure to parse html, or check if the response is HTML
+      # or JSON and convert automatically.
+      curl_stmt = "curl -A Mozilla " + hostname + route + " | html2text"
+      p system(curl_stmt)
     end
 
     private
