@@ -2,5 +2,6 @@ http://www.google.com:
   a:
     method: "GET"
     url: "/search?q=:query"
+    content_type: "HTML"
     data:
       - "query"

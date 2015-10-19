@@ -1,4 +1,5 @@
 require "yaml"
+require "ostruct"
 
 module Otouto
   class App
@@ -13,13 +14,21 @@ module Otouto
         header_proc: Title.method(:print)
       ).prompt
 
-      # TODO: add way to configure to parse html, or check if the response is HTML
-      # or JSON and convert automatically.
-      curl_stmt = "curl -A Mozilla " + hostname + route + " | html2text"
+      route_letter, route_hash = routes(hostname).find { |route_letter, route_hash|
+        route_hash.fetch("url") == route
+      }
+
+      route_obj = OpenStruct.new(route_hash)
+
+      curl_stmt = "curl -A Mozilla " + hostname + route + parse_if_html(route_obj)
       p system(curl_stmt)
     end
 
     private
+
+    def parse_if_html(route_obj)
+      route_obj.content_type == "HTML" ?  " | html2text" : ""
+    end
 
     def route_option_generator(hostname)
       route_info = routes(hostname)

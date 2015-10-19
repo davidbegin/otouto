@@ -1,7 +1,7 @@
 require "otouto/version"
 require "otouto/app"
 require "otouto/cli"
-require "otouto/test"
+require "otouto/title"
 require "fileutils"
 require "downup"
 
