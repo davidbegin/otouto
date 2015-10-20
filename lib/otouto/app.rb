@@ -20,7 +20,7 @@ module Otouto
 
       route_obj = OpenStruct.new(route_hash)
 
-      curl_stmt = "curl -A Mozilla " + hostname + route + parse_if_html(route_obj)
+      curl_stmt = "curl " + headers + hostname + route + parse_if_html(route_obj)
       p system(curl_stmt)
     end
 
@@ -43,6 +43,10 @@ module Otouto
 
     def hostnames
       @hostnames ||= YAML.load_file("config/hostnames.yml")
+    end
+
+    def headers
+      " -A Mozilla "
     end
 
   end
