@@ -19,8 +19,22 @@ module Otouto
       }
 
       route_obj = OpenStruct.new(route_hash)
+      data_hash = if route_obj.data.empty?
+                    {}
+                  else
+                    route_obj.data.each_with_object({}) do |data_needed, data_hash|
+                      puts
+                      print data_needed.to_s + " > "
+                      data_hash[data_needed] = gets.chomp
+                    end
+                  end
 
-      curl_stmt = "curl " + headers + hostname + route + parse_if_html(route_obj)
+      data_hash.each_pair do |param, value|
+        route.sub!(":#{param}", value)
+      end
+
+      p curl_stmt = "curl " + headers + hostname + route + parse_if_html(route_obj)
+      sleep 1
       p system(curl_stmt)
     end
 
