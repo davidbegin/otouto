@@ -23,7 +23,7 @@ class TestCreatingNewOtoutoApp < Minitest::Test
     cli.create_new_app
     assert File.exists?("tmp/#{@app_name}/config/hostnames.yml")
     hostnames = YAML.load_file("tmp/#{@app_name}/config/hostnames.yml")
-    assert_equal hostnames["a"],"www.google.com"
+    assert hostnames["a"].index("www.google.com")
   end
 
   def test_it_creates_a_bin_and_oto_file
@@ -46,6 +46,5 @@ class TestCreatingNewOtoutoApp < Minitest::Test
     cli.create_new_app
     assert File.exists?("tmp/#{@app_name}/config/routes.yml")
     routes = YAML.load_file("tmp/#{@app_name}/config/routes.yml")
-    assert routes.has_key?("www.google.com")
   end
 end
