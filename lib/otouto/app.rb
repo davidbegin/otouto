@@ -8,7 +8,7 @@ module Otouto
       route     = request_route(hostname)
       route     = request_and_add_data_to_route(hostname, route)
 
-      p curl_stmt = "curl " + headers + hostname + route + parse_if_html(@route_obj)
+      p curl_stmt = "curl " + headers + hostname + route + parse_if_html
       sleep 1
       p system(curl_stmt)
     end
@@ -49,8 +49,8 @@ module Otouto
       ).prompt
     end
 
-    def parse_if_html(route_obj)
-      route_obj.content_type == "HTML" ?  " | html2text" : ""
+    def parse_if_html
+      @route_obj.content_type == "HTML" ?  " | html2text" : ""
     end
 
     def route_option_generator(hostname)
