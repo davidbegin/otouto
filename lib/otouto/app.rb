@@ -16,8 +16,8 @@ module Otouto
     private
 
     def request_and_add_data_to_route(hostname, route)
-      route_letter, route_hash = routes(hostname).find { |route_letter, route_hash|
-        route_hash.fetch("url") == route
+      _, route_hash = routes(hostname).find { |_, route_hash|
+        route_hash["url"] == route
       }
 
       @route_obj = OpenStruct.new(route_hash)
