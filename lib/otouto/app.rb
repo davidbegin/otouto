@@ -21,18 +21,20 @@ module Otouto
       }
 
       @route_obj = OpenStruct.new(route_hash)
-      data_hash = if @route_obj.data.empty?
-                    {}
-                  else
-                    @route_obj.data.each_with_object({}) do |data_needed, data_hash|
-                      puts
-                      print data_needed.to_s + " > "
-                      data_hash[data_needed] = gets.chomp
-                    end
-                  end
+      data_hash = data_collector
 
       data_hash.each_pair { |param, value| route.sub!(":#{param}", value) }
       route
+    end
+
+    def data_collector
+      return {} if @route_obj.data.empty?
+
+      @route_obj.data.each_with_object({}) do |data_needed, data_hash|
+        puts
+        print data_needed.to_s + " > "
+        data_hash[data_needed] = gets.chomp
+      end
     end
 
     def request_hostname
