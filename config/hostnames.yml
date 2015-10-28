@@ -1,2 +1,3 @@
-a: "http://www.google.com"
-b: "http://example.com"
+"http://www.google.com":
+  api_token: "49Fe8-74-874-9AD944"
+"http://example.com":

@@ -67,7 +67,11 @@ module Otouto
     end
 
     def hostnames
-      @hostnames ||= YAML.load_file("config/hostnames.yml")
+      @hostnames ||= hostname_configuration.keys
+    end
+
+    def hostname_configuration
+      @hostname_configuration ||= YAML.load_file("config/hostnames.yml")
     end
 
     def headers
