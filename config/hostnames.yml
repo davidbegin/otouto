@@ -1,3 +1,4 @@
 "http://www.google.com":
-  api_token: "49Fe8-74-874-9AD944"
+  headers:
+    Api-Token: "49Fe8-74-874-9AD944"
 "http://example.com":

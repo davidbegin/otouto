@@ -8,7 +8,7 @@ module Otouto
       route     = request_route(hostname)
       route     = request_and_add_data_to_route(hostname, route)
 
-      p curl_stmt = "curl " + headers + hostname + route + parse_if_html
+      p curl_stmt = "curl " + hostname + route + headers(hostname) + parse_if_html
       sleep 1
       p system(curl_stmt)
     end
@@ -74,8 +74,11 @@ module Otouto
       @hostname_configuration ||= YAML.load_file("config/hostnames.yml")
     end
 
-    def headers
-      " -A Mozilla "
+    def headers(hostname)
+      user_headers = hostname_configuration.fetch(hostname).fetch("headers").map do |key, value|
+        "-H #{key}: #{value}"
+      end.join(" ")
+      " -A Mozilla " + user_headers + " "
     end
 
   end
