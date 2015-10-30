@@ -75,9 +75,12 @@ module Otouto
     end
 
     def headers(hostname)
-      user_headers = hostname_configuration.fetch(hostname).fetch("headers").map do |key, value|
+      user_headers = hostname_configuration.
+        fetch(hostname).
+        fetch("headers") { [] }.map do |key, value|
         "-H #{key}: #{value}"
       end.join(" ")
+
       " -A Mozilla " + user_headers + " "
     end
 
