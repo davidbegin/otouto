@@ -52,12 +52,11 @@ module Otouto
     end
 
     def parse_if_html
-      @route_obj.content_type == "HTML" ?  " | html2text" : ""
+      @route_obj.content_type == "HTML" ? " | html2text" : ""
     end
 
     def route_option_generator(hostname)
-      route_info = routes(hostname)
-      route_info.keys.map.with_object({}) do |elem, options|
+      routes(hostname).keys.map.with_object({}) do |elem, options|
         options[elem] = route_info.fetch(elem).fetch("url")
       end
     end
