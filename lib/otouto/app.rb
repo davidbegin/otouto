@@ -80,7 +80,11 @@ module Otouto
         "-H #{key}: #{value}"
       end.join(" ")
 
-      " -A Mozilla " + user_headers + " "
+      user_headers + user_headers + " "
+    end
+
+    def user_agent
+      " -A Mozilla "
     end
 
   end
